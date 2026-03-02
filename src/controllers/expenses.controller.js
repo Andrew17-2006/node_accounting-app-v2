@@ -31,7 +31,7 @@ exports.createExpense = (req, res) => {
   const { userId, amount, category, title, note, spentAt } = req.body;
 
   if (
-    !userId ||
+    userId === undefined ||
     typeof amount !== 'number' ||
     !category ||
     !title ||

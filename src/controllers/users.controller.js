@@ -42,15 +42,17 @@ exports.updateUserById = (req, res) => {
   const id = Number(req.params.id);
   const data = req.body;
 
-  const updated = userService.updateUserById(id, data);
-
-  if (!data || !Object.keys(data).length) {
+  if (!data || !data.name) {
     return res.status(400).json({ error: 'Bad request' });
   }
 
-  if (!updated) {
+  const user = userService.getUserById(id);
+
+  if (!user) {
     return res.status(404).json({ error: 'User not found' });
   }
+
+  const updated = userService.updateUserById(id, data);
 
   res.json(updated);
 };
